@@ -5,7 +5,7 @@ const pool = require('../models/DbConnection');
 
 router.post('', async (req, res) => {
   const { result: typeId } = req.body;
-  if (!typeId || Number(typeId) > 12 || Number(typeId) < 0) {
+  if (!typeId || Number(typeId) > 12 || Number(typeId) < 1) {
     return res.status(406).json({ message: 'wrong type id' });
   }
   // results 테이블에 저장
