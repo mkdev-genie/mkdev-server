@@ -84,10 +84,7 @@ jobs:
 
       - name: custom code
         run: |
-          echo done
-        with:
-          script: |
-            cd mkdev-server
-            git pull origin main
-            npm install
-            pm2 app.js
+          cd mkdev-server \
+          git pull origin main \
+          npm install \
+          pm2 app.js
