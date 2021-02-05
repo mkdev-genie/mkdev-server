@@ -84,7 +84,7 @@ jobs:
 
       - name: custom code
         run: |
-          cd mkdev-server;
+          cd /home/ubuntu/mkdev-server;
           git pull origin main; 
           npm install;
           pm2 app.js;
