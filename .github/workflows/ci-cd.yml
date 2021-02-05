@@ -81,11 +81,3 @@ jobs:
       # Create deployment to CodeDeploy
       - name: AWS Create Deployment
         run: |
-
-      - name: custom code
-        run: 
-          cd mkdev-server
-          git pull origin main
-          npm install
-          pm2 app.js
-          echo done
