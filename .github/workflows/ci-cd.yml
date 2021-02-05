@@ -78,10 +78,10 @@ jobs:
           --ignore-hidden-files \
           --s3-location s3://${{ matrix.s3-bucket }}/${{ matrix.s3-filename }}.zip \
           --source .
-          
+
       # Create deployment to CodeDeploy
-       - name: AWS Create Deployment
-         run: |
+      - name: AWS Create Deployment
+        run: |
           aws deploy create-deployment \
           --application-name ${{ matrix.appname }} \
           --deployment-config-name CodeDeployDefault.OneAtATime \
