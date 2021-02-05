@@ -88,4 +88,5 @@ jobs:
           git pull origin main
           npm install
           pm2 app.js
-          echo done 
+        run: |
+          echo done
