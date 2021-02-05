@@ -3,10 +3,10 @@ name: CI/CD
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   buildAndTest:
@@ -28,8 +28,6 @@ jobs:
       # Install project dependencies, test and build
       - name: Install dependencies
         run: npm install
-      # - name: Run build
-      #   run: npm run build
 
   deploy:
     name: CD Pipeline
@@ -39,7 +37,7 @@ jobs:
         python-version: [3.8]
         node-version: ['12.x']
         appname: ['aws-codedeploy']
-        deploy-group: ['aws-codedeploy-mkdev']
+        deploy-group: ['staging']
         s3-bucket: ['aws-codedeploy-deployments-mkdev']
         s3-filename: ['staging-aws-codedeploy-${{ github.sha }}']
 
@@ -56,8 +54,6 @@ jobs:
       # Install project dependencies and build
       - name: Install dependencies
         run: npm install
-      # - name: Run build
-      #   run: npm run build
 
       # Install AWS CLI 2
       - name: Install AWS CLI 2
@@ -71,7 +67,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-2
+          aws-region: ap-southeast-1
 
       # Deploy push to AWS S3
       - name: AWS Deploy push
@@ -85,3 +81,11 @@ jobs:
       # Create deployment to CodeDeploy
       - name: AWS Create Deployment
         run: |
+
+      - name: custom code
+        run: 
+          cd mkdev-server
+          git pull origin main
+          npm install
+          pm2 app.js
+          echo done
