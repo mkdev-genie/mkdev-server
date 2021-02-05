@@ -2,11 +2,9 @@ module.exports = {
   apps: [
     {
       name: 'aws-codedeploy',
-      script: '/home/ubuntu/mkdev-server/app.js',
-      args: 'serve -s build -l 3000 -n',
-      interpreter: 'none',
+      script: '/home/ubuntu/aws-codedeploy/app.js',
       env: {
-        NODE_ENV: 'production',
+        NODE_ENV: 'development',
       },
     },
   ],
