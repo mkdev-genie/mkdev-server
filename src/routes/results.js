@@ -4,12 +4,17 @@ const router = express.Router();
 const pool = require('../models/DbConnection');
 
 router.post('', async (req, res) => {
-  const { result: typeId } = req.body;
-  if (!typeId || Number(typeId) > 12 || Number(typeId) < 1) {
+  const { result: typeId, isNewResult: isNewResult } = req.body;
+  if (!typeId || !Number(typeId) || Number(typeId) > 12 || Number(typeId) < 1) {
     return res.status(406).json({ message: 'wrong type id' });
   }
   // results 테이블에 저장
-  await pool.query(`INSERT INTO results(typeId) VALUES(${typeId})`);
+  if (isNewResult !== "true" && isNewResult !== "false") {
+    return res.status(406).json({ message: 'wrong isNewResult'});
+  }
+  if (isNewResult === "true") {
+    await pool.query(`INSERT INTO results(typeId) VALUES(${typeId})`);
+  }
 
   // 결과 정보 반환
   const [[typesResult]] = await pool.query(
